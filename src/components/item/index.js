@@ -4,10 +4,8 @@ import {Button, Checkbox} from 'santd';
 
 export default {
     components: {
-        's-button': Button,
-        's-checkbox': Checkbox
-    },
-    template: `
+        's-button': Button, 's-checkbox': Checkbox
+    }, template: `
         <div class="todo-box">
             <div class="todo-list">
                 <div
@@ -15,19 +13,20 @@ export default {
                 >
                 <s-checkbox checked="{=done=}" on-change="handleChange">{{title}}</s-checkbox>
                 </div>
-               
+              <div>
+              <s-button type="primary" on-click="handleEdit(index)" >编辑</s-button>
               <s-button type="danger" on-click="handleDelete(index)" >删除</s-button>
+               </div>
+              
             </div>
            
          </div>
-    `,
-    initData: function () {
+    `, initData: function () {
         return {
             info: '111'
 
         };
-    },
-    compiled() {
+    }, compiled() {
         console.log('1111')
     },
 
@@ -37,10 +36,8 @@ export default {
     },
 
     handleDelete(index) {
-        if (confirm('确定删除吗？'))
-            this.fire('change', index)
+        if (confirm('确定删除吗？')) this.fire('change', index)
     }
 
 
-}
-;
+};

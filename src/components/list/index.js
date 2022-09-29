@@ -1,13 +1,11 @@
 import './index.less';
 import Item from '@components/item';
-import {Button,Checkbox} from 'santd';
+import {Button, Checkbox} from 'santd';
+
 export default {
     components: {
-        'item': Item,
-        's-button': Button,
-        's-checkbox': Checkbox
-    },
-    template: `
+        'item': Item, 's-button': Button, 's-checkbox': Checkbox
+    }, template: `
        <div>
             <ul>
                 <item 
@@ -28,45 +26,45 @@ export default {
                <s-button  type="danger" on-click="clearDone" >清除已完成任务</s-button>
             </div>
         </div>
-    `,
-    initData: function () {
+    `, initData: function () {
         return {
-           
+            // todoobj: JSON.parse(localStorage.getItem('todoobj')) || []
         };
-        
-    },
-    computed: {
-        //总数
-        total(){
+
+    }, computed: {
+
+        total() {
             return this.data.get('todoobj.length')
+        }, doneTotal() {
+            return this.data.get('todoobj').reduce((pre, todo) => pre + (todo.done ? 1 : 0), 0)
         },
-        doneTotal(){
-            return this.data.get('todoobj').reduce((pre,todo)=> pre + (todo.done ? 1 : 0) ,0)
-        },
-        checkAll(){
 
-           return  this.data.get('todoobj.length') === this.data.get('todoobj').reduce((pre,todo)=> pre + (todo.done ? 1 : 0) ,0)
+        checkAll() {
+            return this.data.get('todoobj.length') === this.data.get('todoobj').reduce((pre, todo) => pre + (todo.done ? 1 : 0), 0)
         }
-     
+
     },
-    
+
     updated: function () {
-        console.log(this.data.get('todoobj'),'数据已修改')
-        this.data.set('todoobj',this.data.get('todoobj'))
+        this.watch('todoobj', function (value) {
+            localStorage.setItem('todoobj', JSON.stringify(value))
+            console.log(value, '数据监视子变化')
+        });
+        console.log(this.data.get('todoobj'), '数据已修改')
+        this.data.set('todoobj', this.data.get('todoobj'))
     },
 
-    deleteTodo(index){
+    deleteTodo(index) {
         this.data.removeAt('todoobj', index);
+        localStorage.removeItem( this.data.get('todoobj'), index)
     },
-    checkTodo(id)
-    {
-     this.fire('change',id)
+    checkTodo(id) {
+        this.fire('change', id)
     },
 
-    handleAllChange(e){
-      this.fire('choose',e.target.checked)
-    },
-    clearDone(){
+    handleAllChange(e) {
+        this.fire('choose', e.target.checked)
+    }, clearDone() {
         this.fire('clear')
     }
 
