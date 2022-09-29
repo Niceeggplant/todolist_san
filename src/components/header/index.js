@@ -11,11 +11,11 @@ export default {
         console.log(todoObj,value)
         this.data.set('todoObj',todoObj)
         this.fire("change", todoObj)
-        this.title = ''
+        this.data.set('title','')
     },
     template: `
     <div>
-    <s-input placeholder="回车输入代办事项" allowClear="{{true}}" on-pressEnter="onChange"/>
+    <s-input  placeholder="回车输入代办事项" allowClear="{{true}}" on-pressEnter="onChange"  value="{=title=}"/>
 </div>
     `,
     initData: function () {

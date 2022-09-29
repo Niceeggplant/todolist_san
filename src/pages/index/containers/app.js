@@ -54,9 +54,8 @@ export default class App extends Component {
     {
        this.data.get('todoobj').forEach((todo)=>{
             if(todo.id === id) 
-            {   console.log('22',id)
+            {
                 todo.done = !todo.done
-                console.log('23',todo.done)
             }
         })
         this.todoobj=[...this.data.get('todoobj')]
@@ -74,12 +73,11 @@ export default class App extends Component {
 
     chooseAllbox(done)
     {
-        this.data.get('todoobj').forEach((todo)=>{
-            todo.done = done
+        this.todoobj =this.data.get('todoobj').map((todoObj)=>{
+          return {...todoObj,done}
         })
-        this.todoobj =[...this.data.get('todoobj')]
         this.data.set('todoobj',this.todoobj )
-        console.log( this.data.get('todoobj') ,'全选')
+        console.log(  this.todoobj,'全选')
     }
   
    

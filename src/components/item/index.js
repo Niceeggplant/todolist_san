@@ -1,6 +1,6 @@
 import './index.less';
 
-import {Button,Checkbox} from 'santd';
+import {Button, Checkbox} from 'santd';
 
 export default {
     components: {
@@ -13,7 +13,7 @@ export default {
                 <div
                     class="left"
                 >
-                <s-checkbox checked={{done}} on-change="handleChange">{{title}}</s-checkbox>
+                <s-checkbox checked="{=done=}" on-change="handleChange">{{title}}</s-checkbox>
                 </div>
                
               <s-button type="danger" on-click="handleDelete(index)" >删除</s-button>
@@ -23,21 +23,24 @@ export default {
     `,
     initData: function () {
         return {
-            
-        
+            info: '111'
+
         };
     },
-    updated:function(){
-    console.log('done变化',this.data.get('done'))
-  },
-  
-    handleChange(){
-        this.fire('check',this.data.get('id'))
+    compiled() {
+        console.log('1111')
     },
-    handleDelete(index){
-        if(confirm('确定删除吗？'))
-        this.fire('change',index)
+
+
+    handleChange(e) {
+        this.fire('check', this.data.get('id'))
+    },
+
+    handleDelete(index) {
+        if (confirm('确定删除吗？'))
+            this.fire('change', index)
     }
-    
-   
-};
+
+
+}
+;

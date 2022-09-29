@@ -15,14 +15,14 @@ export default {
                 title={{item.title}}
                 id={{item.id}}
                 on-check="checkTodo"
-                done={{item.done}}
+                done={=item.done=}
                 on-change="deleteTodo"
                 />
             
             </ul>
             <div class="todo-footer" s-if={{total}}>
                 <div style="border-bottom: 1px solid #E9E9E9">
-                <s-checkbox  on-change="handleAllChange" checked="{{checkAll}}">已完成{{doneTotal}}/全部{{total}}</s-checkbox>
+                <s-checkbox  on-change="handleAllChange" checked="{=checkAll=}">已完成{{doneTotal}}/全部{{total}}</s-checkbox>
                 </div>
             
                <s-button  type="danger" on-click="clearDone" >清除已完成任务</s-button>
@@ -43,6 +43,10 @@ export default {
         doneTotal(){
             return this.data.get('todoobj').reduce((pre,todo)=> pre + (todo.done ? 1 : 0) ,0)
         },
+        checkAll(){
+
+           return  this.data.get('todoobj.length') === this.data.get('todoobj').reduce((pre,todo)=> pre + (todo.done ? 1 : 0) ,0)
+        }
      
     },
     
