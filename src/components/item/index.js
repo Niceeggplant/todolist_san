@@ -11,10 +11,14 @@ export default {
                 <div
                     class="left"
                 >
-                <s-checkbox checked="{=done=}" on-change="handleChange">{{title}}</s-checkbox>
+                <label>
+                 <s-checkbox checked="{=done=}" on-change="handleChange"/>
+                 <span s-if="!todoobj.isEdit"> {{title}} </span>
+                  <input s-else  style="width: 80%"  type="text" value="{= title =}">
+                </label>
                 </div>
               <div>
-              <s-button type="primary" on-click="handleEdit(index)" >编辑</s-button>
+              <s-button s-if="!todoobj.isEdit"  type="primary" on-click="handleEdit(todoobj)" >编辑</s-button>
               <s-button type="danger" on-click="handleDelete(index)" >删除</s-button>
                </div>
               
@@ -23,7 +27,7 @@ export default {
          </div>
     `, initData: function () {
         return {
-            info: '111'
+            show: false
 
         };
     }, compiled() {
@@ -37,7 +41,17 @@ export default {
 
     handleDelete(index) {
         if (confirm('确定删除吗？')) this.fire('change', index)
-    }
+    },
+
+    handleEdit(todo){
+        console.log(todo,'获取编辑的对象')
+        if(todo.hasOwnProperty('isEdit')){
+            todo.isEdit = true
+        }else{
+            this.data.set(todo['isEdit'],true)
+            // console.log('@')
+        }
+    },
 
 
 };

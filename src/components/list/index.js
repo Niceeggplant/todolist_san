@@ -12,6 +12,7 @@ export default {
                 s-for="item,index in todoobj"
                 title={{item.title}}
                 id={{item.id}}
+                todoobj={{todoobj}}
                 on-check="checkTodo"
                 done={=item.done=}
                 on-change="deleteTodo"
