@@ -85,5 +85,6 @@ module.exports = {
         //         publicPath: isProduction ? CDN : ''
         //     });
     },
-    sourceMap: isProduction
+    sourceMap: isProduction,
+
 };

@@ -8,9 +8,9 @@ export default {
     onChange(value) {
      
         let  todoObj= {id:nanoid(),title:value,done:false}
-        console.log(todoObj,value)
         this.data.set('todoObj',todoObj)
         this.fire("change", todoObj)
+
         this.data.set('title','')
     },
     template: `
