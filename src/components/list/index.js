@@ -9,16 +9,16 @@ export default {
        <div>
             <ul>
                 <item 
-                s-for="item,index in todoobj"
+                s-for="item,index in todoObj"
                 
                 title={{item.title}}
                 id={{item.id}}
                 item={{item}}
                 done={{item.done}}
                 
-                on-check="checkTodo"
-                on-change="deleteTodo"
-                on-update="updateTodo"
+                on-checkTodo="checkTodo"
+                on-deleteTodo="deleteTodo"
+                on-updateTodo="updateTodo"
                 />
             
             </ul>
@@ -33,63 +33,60 @@ export default {
         
     `, initData: function () {
         return {
-            // todoobj: JSON.parse(localStorage.getItem('todoobj')) || []
+            // todoObj: JSON.parse(localStorage.getItem('todoObj')) || []
         };
 
     }, computed: {
 
         total() {
-            return this.data.get('todoobj.length')
+            return this.data.get('todoObj.length')
         },
 
         doneTotal() {
-            return this.data.get('todoobj').reduce((pre, todo) => pre + (todo.done ? 1 : 0), 0)
+            return this.data.get('todoObj').reduce((pre, todo) => pre + (todo.done ? 1 : 0), 0)
         },
 
         checkAll() {
-            return this.data.get('todoobj.length') === this.data.get('todoobj').reduce((pre, todo) => pre + (todo.done ? 1 : 0), 0)
+            return this.data.get('todoObj.length') === this.data.get('todoObj').reduce((pre, todo) => pre + (todo.done ? 1 : 0), 0)
         }
 
     },
 
     updated: function () {
-        this.watch('todoobj', function (value) {
-            localStorage.setItem('todoobj', JSON.stringify(value))
-            console.log(value, '监视list数据变化')
+        this.watch('todoObj', function (value) {
+            localStorage.setItem('todoObj', JSON.stringify(value))
         });
-        console.log(this.data.get('todoobj'), 'list数据已修改')
-        this.data.set('todoobj', this.data.get('todoobj'))
+        console.log(this.data.get('todoObj'), 'list数据已修改')
+        this.data.set('todoObj', this.data.get('todoObj'))
     },
 
     // 删除
     deleteTodo(index) {
-        this.data.removeAt('todoobj', index);
-        localStorage.removeItem( this.data.get('todoobj'), index)
+        this.data.removeAt('todoObj', index);
+        localStorage.removeItem( this.data.get('todoObj'), index)
     },
 
     //单选
     checkTodo(id) {
-        this.fire('change', id)
+        this.fire('checkedTodo', id)
     },
 
     //全选
     handleAllChange(e) {
-        this.fire('choose', e.target.checked)
+        this.fire('chooseAllbox', e.target.checked)
     },
 
     // 清除已完成的数据
     clearDone() {
-        this.fire('clear')
+        this.fire('clearAlldone')
     },
 
     //更新编辑数据
     updateTodo(item){
-        this.data.get('todoobj').forEach((todo)=>{
+        this.data.get('todoObj').forEach((todo)=>{
             if(todo.id === item.id)
                 todo.title = item.title
         })
     }
-
-
 
 };

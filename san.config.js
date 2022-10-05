@@ -76,7 +76,7 @@ module.exports = {
     chainWebpack: config => {
         // 这里可以用来扩展 webpack 的配置，使用的是 webpack-chain 语法
 
-        // config.module.rule('img')
+        // config.,module.rule('img')
         //     .test(/\.(png|jpe?g|gif)(\?.*)?$/)
         //     .use('url-loader').loader(require.resolve('url-loader'))
         //     .options({
